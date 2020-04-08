@@ -1,0 +1,48 @@
+<div *ngIf="flag">
+  <span>Available Seats: {{availablseats.length}}</span>
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit(bookingForm)">
+    <label class="center-block">Name:
+      <input class="form-control" formControlName="name">
+    </label>
+    <label class="center-block">no. of Seats:
+      <input type="number" class="form-control" formControlName="count">
+    </label>
+    <button type="submit" [disabled]="bookingForm.invalid">Book</button>
+    <div>{{error}}</div>
+  </form>
+</div>
+<div class="conformation-container" *ngIf="!flag">
+  <div class="seat-row">
+    <div class="seat-legend">
+      <div class="seat">
+      Available
+      <label class="seat-label available"></label>
+      </div>
+    </div>
+    <div class="seat-legend">
+      <div class="seat">
+      Booked
+      <label class="seat-label booked "></label>
+      </div>
+    </div>
+    <div class="seat-legend">
+      <div class="seat">
+      Your Bookings
+      <label class="seat-label selected"></label>
+      </div>
+    </div>
+  </div>
+  <ng-container  *ngFor ="let seat of bookingInfo.seats; let i = index">
+    <div class="seat-row" *ngIf="i % 7 == 0">
+      <div  class="seat" *ngFor="let seatItem of bookingInfo.seats | slice:i:i+7" >
+        <label class="seat-label" [ngClass] = "seatItem.status=== 'booked' ? (bookingForm.controls.name.value === seatItem.bookedBy ? 'selected' : 'booked'): 'available'">
+        {{seatItem.seatNo}}</label>
+      </div>
+    </div>
+  </ng-container>
+
+<div class="new-booking">
+  <button (click)="openBookingForm()"> New Booking</button>
+</div>
+</div>
+
