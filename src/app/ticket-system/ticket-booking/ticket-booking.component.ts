@@ -39,7 +39,7 @@ export class TicketBookingComponent implements OnInit {
     if (requiredSeats > 7 ){
       this.error = "Only 7 seats can be booked at a time."
     }else if (requiredSeats < 1 ){
-
+      this.error = "Seats required mus be greater than zero"
     }else if (requiredSeats > this.availablseats.length) {
       this.error = "required seats not available";
     } else if (requiredSeats > 0) {
